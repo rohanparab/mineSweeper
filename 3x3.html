@@ -1,0 +1,190 @@
+<html>
+    <head>
+        <title>Mine sweeper</title>
+    </head>
+    <style>
+        .box{
+            height: 100px;
+            width: 100px;
+            border-color: black;
+            border: 1px solid;
+            text-align: center;
+            font-size: 18px;
+        }
+        
+        td{
+            top: 50%;
+        }
+        
+        .revealed{
+            background-color: aqua;
+        }
+    </style>
+    <body>
+        <script type="text/javascript">
+            var min = 0;
+            var max = 2;
+            var a = [
+                [0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0]
+            ];
+            
+            
+            
+
+            var randomnumber = Math.floor(Math.random() * (2 - 0 + 1)) + 0;
+            a[0][randomnumber] = 1;
+            var randomnumber = Math.floor(Math.random() * (2 - 0 + 1)) + 0;
+            a[1][randomnumber] = 1;
+            var randomnumber = Math.floor(Math.random() * (2 - 0 + 1)) + 0;
+            a[2][randomnumber] = 1;
+            
+            var count = 0;
+            
+            var win = 0;
+            
+            function check(i, j){
+                win++;
+                if(a[i][j] == 1){
+                    alert('game over');
+                }else{
+                    count = 0;
+                    right(i, j);
+                    left(i, j);
+                    up(i,j);
+                    down(i,j);
+                    x_up_left(i,j);
+                    x_up_right(i,j);
+                    x_down_left(i,j);
+                    x_down_right(i,j);
+                    var block = "b" + i;
+                    block = block+ "" + j;
+                    document.getElementById(block).innerHTML=count;
+                    document.getElementById(block).removeAttribute("onclick");
+                    document.getElementById(block).classList.add("revealed");
+                    if(count == 0){
+                        if(j < max){
+                            check(i, j+1);
+                        }
+                        
+                        if(j > 0){
+                            chech(i, j-1);
+                        }
+                        
+                        if(i < max){
+                            check(i+1, j);
+                        }
+                        
+                        if(i < max && j < max){
+                            check(i+1, j+1);
+                        }
+                        
+                        if(i < max && j > 0){
+                            check(i+1, j-1);
+                        }
+                        
+                        if(i > 0){
+                            check(i-1, j);
+                        }
+                        
+                        if(i > 0 && j < max){
+                            check(i-1, j+1);
+                        }
+                        
+                        if(i > 0 && j >0){
+                            check(i-1, j-1);
+                        }
+                    }
+                }
+                if(win >= 6){
+                    alert('you win');
+                }
+            }
+            
+            function right(w, q){
+                if(q < max){
+                    if(a[w][q+1] == 1){
+                        count++;
+                    }
+                }
+            }
+            
+            function left(e, r){
+                if(r > 0){
+                    if(a[e][r-1] == 1){
+                        count++;
+                    }
+                }
+            }
+            
+            function up(t, y){
+                if(t > 0){
+                    if(a[t-1][y] == 1){
+                        count++;
+                    }
+                }
+            }
+            
+            function down(u, i){
+                if(u < max){
+                    if(a[u+1][i] == 1){
+                        count++;
+                    }
+                }
+            }
+            
+            function x_up_left(o, p){
+                if(o > 0 && p > 0){
+                    if(a[o-1][p-1] == 1){
+                        count++;
+                    }
+                }
+            }
+            
+            function x_up_right(z, x){
+                if(z > 0 && x < max){
+                    if(a[z-1][x+1] == 1){
+                        count++;
+                    }
+                }
+            }
+            
+            function x_down_left(c, v){
+                if(c < max && v > 0){
+                    if(a[c+1][v-1] == 1){
+                        count++;
+                    }
+                }
+            }
+            
+            function x_down_right(b, n){
+                if(b < max && n < max){
+                    if(a[b+1][n+1] == 1){
+                        count++;
+                    }
+                }
+            }
+            
+        </script>
+        <center>
+            <table>
+                <tr>
+                    <td><div class="box" onclick="check(0,0)" id="b00"></div></td>
+                    <td><div class="box" onclick="check(0,1)" id="b01"></div></td>
+                    <td><div class="box" onclick="check(0,2)" id="b02"></div></td>
+                </tr>
+                <tr>
+                    <td><div class="box" onclick="check(1,0)" id="b10"></div></td>
+                    <td><div class="box" onclick="check(1,1)" id="b11"></div></td>
+                    <td><div class="box" onclick="check(1,2)" id="b12"></div></td>
+                </tr>
+                <tr>
+                    <td><div class="box" onclick="check(2,0)" id="b20"></div></td>
+                    <td><div class="box" onclick="check(2,1)" id="b21"></div></td>
+                    <td><div class="box" onclick="check(2,2)" id="b22"></div></td>
+                </tr>
+            </table>
+        </center>
+    </body>
+</html>
